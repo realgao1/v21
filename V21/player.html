@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- IE内核 强制使用最新的引擎渲染网页 -->
+	<meta name="renderer" content="webkit">  <!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0 ,maximum-scale=1.0, user-scalable=no"><!-- 手机H5兼容模式 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/common.min.css">
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<script src="./js/vue.min.js"></script>
+	<script src="./js/vant.min.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/jquery.base64.js"></script>
+	<script src="./js/cookie.min.js"></script>
+	<script src="./js/common.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+</head>
+<body>
+	<van-nav-bar safe-area-inset-top />
+	<div id="player_app" class="container" style="width: 100%;;">
+		<van-nav-bar fixed="true"
+		  placeholder = "true" 
+		  title="爱看视频"
+		  id="reset"
+		  left-arrow
+		  left-text="返回"
+		  @click-left="existplay()"
+		>
+		</van-nav-bar>
+		<div class="row">
+			<div id="col-lg-12 col-xs-12">
+				<iframe
+					id="play" 
+					width="100%" 
+					height="265px" 
+					style="margin-left: 0px;;"
+					border="0" 
+					frameborder="0" 
+					marginwidth="0" 
+					marginheight="0" 
+					scrolling="no"
+					allowfullscreen="allowfullscreen"  
+					mozallowfullscreen="mozallowfullscreen"  
+					msallowfullscreen="msallowfullscreen" 
+					oallowfullscreen="oallowfullscreen" 
+					webkitallowfullscreen="webkitallowfullscreen"
+				></iframe>
+				
+				<table><tr style="height:50px;">
+					<td colspan='3'><div id="title">Title</div></td>
+					<td class="p4">
+						<van-button 
+							plain 
+							round 
+							type="primary" 
+							id="list" 
+							is-link 
+							@click="showPopup" 
+							size="small"
+							icon="wap-nav"
+						>
+							剧集
+						</van-button >
+					
+					</td>
+				</tr><tr>
+					<td id="p1">类型：</td><td id="vtype" class="p2">-</td>
+					<td id="p1">类别：</td><td id="vdefi" class="p2">-</td>
+				</tr><tr>
+					<td id="p1">地区：</td><td id="diqu" class="p2">-</td>
+					<td id="p1">导演：</td><td id="daoyan" class="p2">-</td>
+				</tr><tr>
+					<td id="p1">年份：</td>
+					<td id="online" class="p3" colspan='3'>-</td>
+				</tr><tr>
+					<td id="p1">主演：</td>
+					<td id="zhuyan" class="p3" colspan='3'>-</td>
+				</tr><tr>
+					<td id="p1">简介：</td>
+					<td id="vintro" class="p3" colspan='3'>-</td>
+				</tr></table>	
+			</div>
+		</div>
+		
+		<van-popup 
+			round
+			v-model="list_pannel_show" 
+			position="bottom" 
+			:overlay=false
+			:closeable=true
+			:safe-area-inset-bottom=true
+			:style="{ height: '70%' }" >
+			
+			<van-list
+				v-model="loading"
+				:finished="finished"
+				finished-text="没有更多了"
+				@load="onLoad"
+				style="margin-top:60px;margin-bottom:60px;">
+				
+				<van-cell v-for="(code,no) in list">
+					<van-button plain type="primary" block @click="changejuji(code.resolve_code)">
+						第{{code.video_no}}集
+					</van-button>
+				</van-cell>
+			</van-list>
+		</van-popup>
+		
+		<van-tabbar v-model="active" active-color="#07c160" inactive-color="#000" fixed=true>
+		  <van-tabbar-item icon="home-o" @click="tab(0,0)">首页</van-tabbar-item>
+			<van-tabbar-item icon="play-circle-o" @click="tab(0,1)">直播</van-tabbar-item>
+			<van-tabbar-item icon="contact" @click="tab(0,2)">我的</van-tabbar-item>
+		</van-tabbar>
+	</div>
+</body>
+<script type="application/javascript">
+	var type = decodeURI(decodeURI(req['vt']));
+	var page = req['page'];
+	var vid = req['vid'];
+	var path = req['path'];
+	var online = req['online'];
+	var diqu = req['diqu'];
+	var daoyan = req['daoyan'];
+	var zhuyan = req['zhuyan'];
+	var vtype = Base64.decode(req['vtype']);
+	var intro = Base64.decode(req['intro']);
+	var vt = req['vt'];
+	
+	var player_app= new Vue({
+		el:"#player_app", 
+		data: {
+			active: 0, //标签栏序号
+			activeNames: ['0'],
+			list_pannel_show: false,
+			list: [],
+			loading: false,
+			finished: false,
+		},
+		methods: {
+			showPopup() {
+				//判断type，非dy类型加载
+				if(type != '55S15b2x'){
+					this.list_pannel_show = true;
+				}
+			},
+			onLoad() {
+			    // 异步更新数据
+				$.ajax({
+					url:comm_url+'/base/showData/getTeleByRcd/'+vid,
+					type:'GET',
+					async:false,
+					success:function(data){
+						var lst = [];
+						for (var i = 0; i < data.length; i++) {
+							var obj={
+								"resolve_code":'player.html?path='  + data[i].resolve_code,
+								"video_no":data[i].video_no
+							}
+							lst.push(data[i]);
+						}
+						player_app.$set(player_app,'list', lst);
+					}
+				});
+				
+				// 加载状态结束
+				this.loading = false;
+				// 数据全部加载完成
+				if (this.list.length >= 40) {
+				  this.finished = true;
+				}
+			},
+		}
+	});
+	
+	$(function(){
+		if(type == '55S15b2x'){
+			$("#list").hide();
+		}
+		if(vt == '5pqC5peg'){
+			//$('#play').attr('src', path.replace("@","="));
+			document.getElementById("play").src = path.replace("@","=");
+			$('#vtype').html(decodeURI(decodeURI(req['vtype'])));
+			$('#diqu').html(decodeURI(decodeURI(diqu)));
+			$('#daoyan').html(decodeURI(decodeURI(daoyan)));
+			$('#zhuyan').html(decodeURI(decodeURI(zhuyan)));
+			$('#vintro').html(decodeURI(decodeURI(req['intro'])));
+			$('#title').html(decodeURI(decodeURI(req['title'])));
+			$("#online").html(online == '' || online == null ? '2020' : online);
+			$('#vdefi').html('蓝光');
+		}else{
+			//$('#play').attr('src', resolve_address + path);
+			document.getElementById("play").src = resolve_address + path;
+			$('#vtype').html('暂无');
+			$('#diqu').html('暂无');
+			$('#daoyan').html('暂无');
+			$('#zhuyan').html('暂无');
+			$('#vintro').html(intro.length == null || intro.length == '' ? '简介为空' : intro);
+			$('#title').html(Base64.decode(req['title']));
+			$("#online").html(online == '' || online == null ? '2020' : online);
+			$('#vdefi').html('蓝光');
+		}
+	});
+	
+	function existplay(){
+		vant.Dialog.confirm({
+		  confirmButtonText: '不看',
+		  confirmButtonColor:'#07c160',
+		  cancelButtonText: '看吧',
+		  cancelButtonColor:'#07c160',
+		  message: '您确定不再看一会儿嘛？',
+		  overlay:true,
+		})
+		  .then(() => {
+		    window.history.go(-1);
+		  })
+		  .catch(() => {
+			  //nothing to do!
+		  });
+	}
+
+	function changejuji(juji_path){
+		player_app.$set(player_app,'list_pannel_show', false);
+		$('#play').attr('src', resolve_address + juji_path);
+	}
+</script>
+</html>

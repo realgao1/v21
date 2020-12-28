@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, viewport-fit=cover"">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+	<van-nav-bar safe-area-inset-top />
+	<div id="search_app">
+		<van-search
+			v-model="value"
+			show-action
+			shape="round"
+			placeholder="请输入搜索关键词"
+			input-align="left"
+			@search="onSearch"
+		>
+			<template #left>
+				<van-icon name="arrow-left" color="#1AA034" @click="toindex" style="width:60px;text-align:left;">
+					<span style="vertical-align:2px;">&nbsp;返回</span>
+				</van-icon>
+			</template>
+			
+			<template #action>
+				<div @click="onSearch(value)" style="color:#1AA034;width:60px;text-align:center;">搜索</div>
+			</template>
+		</van-search>
+		<van-pull-refresh disabled="true" class="container">
+			<div class="row" id="sea_list">		
+				<div class="col-xs-4 col-lg-2" v-for="(resource,index) in resources">
+					<a v-bind:href="resource.resolve_code">
+						<div><img class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+						<div class="caption">
+							<font id="t1">{{resource.video_name_cn}}</font><br/>
+							<font id="t2">{{resource.introduce}}</font>
+						</div>
+					</a>
+			   </div>
+			</div> 
+			
+			<div class="panel panel-default" id="search_panel">
+			    <div class="panel-heading" id="search_record">
+					<div class="row" style="padding-left:5px;">
+						<div class="col-xs-8 col-lg-8">
+							&nbsp;&nbsp;<van-icon name="underway" id="ssjl"><span style="vertical-align:2px;">&nbsp;&nbsp;搜索记录</span></van-icon> 
+						</div>
+						<div class="col-xs-2 col-lg-2">
+							<van-icon name="delete" id="qk" @click="clearRecord"><span style="vertical-align:2px;">&nbsp;清空</span></van-icon>
+						</div>
+						<div class="col-xs-2 col-lg-2">
+							<van-icon name="more-o" id="qk" @click="moreRecord"><span style="vertical-align:2px;">&nbsp;更多</span></van-icon>
+						</div>
+					</div>
+				</div>
+			    <div class="panel-body">
+			        <div class="row">
+			        	<div class="col-xs-4 col-lg-4" v-for="(cookie,index) in cookies">
+			        		<a v-on:click="ky(cookie.vname)" href="javascript:void(0)">
+								<div class="record_search">{{cookie.vname}}</div>
+							</a>
+			           </div>
+			        </div> 
+			    </div>
+			</div>
+			
+			<van-popup 
+				v-model="record_content_show" 
+				position="center" 
+				closeable
+				duration="0.3"
+				round=true
+				@close="showCurRecord()"
+				:style="{width:'96%',height:'68%'}"
+			>
+				<div style="font-size:18px;color:#1AA034;margin-top:20px;padding-left:15px;">
+					<van-icon name="underway"><span style="vertical-align:3px;">&nbsp;搜索记录</span></van-icon>
+				</div>
+				<van-divider></van-divider>
+				<div v-for="(m,i) in mrc">
+					<van-swipe-cell>
+						<van-cell :border="true" :title="m.vname" :value="m.time"></van-cell>
+						<template #right>
+							<van-button square type="danger" text="删除" @click="delRec(m.time)"></van-button>
+							<van-button square type="primary" text="收藏" @click="shc(m.vname)"></van-button>
+						</template>
+					</van-swipe-cell>
+				</div>
+			</van-popup>
+		</van-pull-refresh>
+		<van-tabbar v-model="active" active-color="#07c160" inactive-color="#000" fixed=true>
+			<van-tabbar-item icon="home-o" @click="tab(0,0)">首页</van-tabbar-item>
+			<van-tabbar-item icon="play-circle-o" @click="tab(0,1)">直播</van-tabbar-item>
+			<van-tabbar-item icon="contact" @click="tab(0,2)">我的</van-tabbar-item>
+		</van-tabbar>
+	</div>
+</body>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/common.min.css">
+<script src="js/vue.min.js"></script>
+<script src="js/vant.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/cookie.min.js"></script>
+<script src="js/common.min.js"></script>
+<script type="application/javascript">
+	$(function(){
+		search_app.$set(search_app,'cookies', getAllCache_24());
+	});
+</script>
+</html>

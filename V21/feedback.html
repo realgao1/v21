@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/common.min.css">
+	<title>反馈</title>
+</head>
+<body>
+	<van-nav-bar safe-area-inset-top />
+	<div id="feedback_app">
+		<van-nav-bar
+			fixed
+			placeholder = "true"
+			title="反馈"
+			left-arrow
+			left-text="返回"
+			id="reset"
+			@click-left="tosetting">
+		</van-nav-bar>
+		<van-form @submit="onSubmit" id="fb">
+			<van-field
+				v-model="message"
+				rows="8"
+				type="textarea"
+				maxlength="500"
+				show-word-limit
+				name="message"
+				:clearable="true"
+				placeholder="看官请留步! 寒江孤影,江湖故人,相逢何必曾相识,请留下您的宝贵意见吧,不胜感激!">
+			</van-field>
+			<div style="margin: 16px;">
+				<van-button round block type="info" native-type="submit">提交</van-button>
+			</div>
+		</van-form>
+		<van-tabbar placeholder="true" v-model="active" active-color="#07c160" inactive-color="#000" fixed=true>
+			<van-tabbar-item icon="home-o" @click="tab(0,0)">首页</van-tabbar-item>
+			<van-tabbar-item icon="play-circle-o" @click="tab(0,1)">直播</van-tabbar-item>
+			<van-tabbar-item icon="contact" @click="tab(0,2)">我的</van-tabbar-item>
+		</van-tabbar>
+	</div>
+</body>	
+<script src="./js/vue.min.js"></script>
+<script src="./js/vant.min.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.base64.js"></script>
+<script src="./js/cookie.min.js"></script>
+<script src="./js/common.min.js"></script>	
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/common.min.css">
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+	<div id="app">
+		<van-nav-bar
+			:fixed="true"
+			title="首页"
+			placeholder = "true"
+			id="reset"
+			@click-right="showSearchPanel"
+		>
+			<template #right>
+			    <van-icon name="search" color="#1AA034" size="22"/>
+			</template>
+		</van-nav-bar>
+		<van-pull-refresh disabled class="container">
+			<!--detail-->
+			<div v-show="ifshow_detail">
+				<van-nav-bar
+					fixed="true"
+					placeholder = "true"
+					title="检索结果"
+					id="reset"
+					left-arrow="true"
+					left-text="返回"
+					@click-left="torank"
+				></van-nav-bar>
+				
+				<div class="row c1" >
+					<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in rank_search_list">
+						<a v-bind:href="'theme.html?name='+resource.name+'&vid='+resource.vid" style="text-decoration:none;">
+							<div><img id="image" class="img-rounded" v-bind:src="resource.pic" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+							<div class="caption">
+								<font id="t1">{{resource.name}}</font><br/>
+								<font id="t2">{{resource.label}}</font>
+							</div>
+						</a>
+				   </div>
+				</div> 
+			</div>
+			<!-- sticky -->
+			<van-tabs
+				sticky
+				:offset-top=44
+				swipeable
+				animated
+				v-show="ifshow_tabs"
+				v-model="tabactive"
+				type="line" 
+				color="#1AA034" 
+				line-height="2px" 
+				line-width="50px" 
+				title-active-color="#1AA034"
+				title-inactive-color="RGBA(0,0,0,0.5)"
+				style="margin-left:-15px;margin-right:-15px;"
+				@change="scrolltotop"
+			>
+			
+				<van-tab :title="scrolltab[0]">
+					<div class="row" style="width:100%;">
+						<div class="col-lg-12 col-xs-12" v-for="(res,index) in rank_list" style="margin-left: 15px;margin-right:15px;"> 
+							<van-collapse v-model="collap" accordion="true">
+								<van-collapse-item :name="index" icon="video-o" :value="res.name" style="padding-left:5px;font-size: 18px;">
+									<van-cell-group v-for="st in res.list" :border="false">
+										<van-cell 
+											icon="fire-o" 
+											:title="st.key" 
+											:value="'已有'+st.hot+'人观看'" 
+											:border="false" 
+											is-link="true"
+											style="color:#B8860B"
+											@click="toplay(st.key)">
+										</van-cell>
+									</van-cell-group>
+								</van-collapse-item>
+							</van-collapse>
+						</div>
+					</div>
+				</van-tab>	
+			
+				<van-tab :title="scrolltab[1]">
+					<div class="row c1" >
+						<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in dy_list">
+							<a v-bind:href="resource.resolve_code" style="text-decoration:none;">
+								<div><img id="image" class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+								<div class="caption">
+									<font id="t1">{{resource.video_name_cn}}</font><br/>
+									<font id="t2">{{resource.introduce}}</font>
+								</div>
+							</a>
+					   </div>
+					</div> 
+				</van-tab>
+				<van-tab :title="scrolltab[2]">
+					<div class="row c1">
+						<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in ds_list">
+							<a v-bind:href="resource.resolve_code" style="text-decoration:none;">
+								<div><img id="image" class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+								<div class="caption">
+									<font id="t1">{{resource.video_name_cn}}</font><br/>
+									<font id="t2">{{resource.introduce}}</font>
+								</div>
+							</a>
+					   </div>
+					</div> 
+				</van-tab>
+				<van-tab :title="scrolltab[3]">
+					<div class="row c1">
+						<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in dm_list">
+							<a v-bind:href="resource.resolve_code" style="text-decoration:none;">
+								<div><img id="image" class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+								<div class="caption">
+									<font id="t1">{{resource.video_name_cn}}</font><br/>
+									<font id="t2">{{resource.introduce}}</font>
+								</div>
+							</a>
+					   </div>
+					</div> 
+				</van-tab>
+				<van-tab :title="scrolltab[4]">
+					<div class="row c1">
+						<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in zy_list">
+							<a v-bind:href="resource.resolve_code" style="text-decoration:none;">
+								<div><img id="image" class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+								<div class="caption">
+									<font id="t1">{{resource.video_name_cn}}</font><br/>
+									<font id="t2">{{resource.introduce}}</font>
+								</div>
+							</a>
+					   </div>
+					</div> 
+				</van-tab>
+				<van-tab :title="scrolltab[5]">
+					<div class="row c1">
+						<div id="cont" class="col-xs-4 col-lg-2" v-for="(resource,index) in jl_list">
+							<a v-bind:href="resource.resolve_code" style="text-decoration:none;">
+								<div><img id="image" class="img-rounded" v-bind:src="resource.video_cover" onerror="this.src='./images/no.png';this.onerror=null"/></div>
+								<div class="caption">
+									<font id="t1">{{resource.video_name_cn}}</font><br/>
+									<font id="t2">{{resource.introduce}}</font>
+								</div>
+							</a>
+					   </div>
+					</div> 
+				</van-tab>
+			</van-tabs>	
+			<br/>
+			<van-pagination
+				v-if="if_show"
+				v-model="currentPage"
+				:total-items="totalitems"
+				:show-page-size="5"
+				:items-per-page="itemsperpage"
+				:page-count="pagecount"
+				@change="nextpage(currentPage)"
+			>
+				<template #prev-text>上页</template>
+				<template #next-text>下页</template>
+				<template #page="{ text }">{{ text }}</template>
+			</van-pagination>
+			<br/>
+		</van-pull-refresh>
+		
+		<van-tabbar v-model="app_tabbar" active-color="#07c160" inactive-color="#000" fixed=true>
+			<van-tabbar-item icon="home-o" @click="tab(0,0)">首页</van-tabbar-item>
+			<van-tabbar-item icon="play-circle-o" @click="tab(0,1)">直播</van-tabbar-item>
+			<van-tabbar-item icon="contact" @click="tab(0,2)">我的</van-tabbar-item>
+		</van-tabbar>
+	</div>
+</body>
+<script src="./js/vue.min.js"></script>
+<script src="./js/vant.min.js"></script>	
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.base64.js"></script>
+<script src="./js/cookie.min.js"></script>
+<script src="./js/common.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+</html>
