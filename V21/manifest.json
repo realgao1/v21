@@ -1,7 +1,7 @@
 {
     "@platforms" : [ "android", "iPhone", "iPad" ],
     "id" : "H58036061", /*应用的标识，创建应用时自动生成，勿手动修改*/
-    "name" : "爱看视频", /*应用名称，程序桌面图标名称*/
+    "name" : "21影院", /*应用名称，程序桌面图标名称*/
     "version" : {
         "name" : "1.0.0", /*应用版本名称*/
         "code" : "83"
@@ -46,7 +46,7 @@
         "splashscreen" : {
             "autoclose" : true, /*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
             "waiting" : false,
-            "delay" : 5
+            "delay" : 3
         },
         "runmode" : "liberate", /*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
         "signature" : "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==", /*可选，保留给应用签名，暂不使用*/
@@ -151,43 +151,43 @@
                 "ios" : {
                     "iphone" : {
                         "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35" : "C:/Users/gaoju/Desktop/11.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40" : "C:/Users/gaoju/Desktop/11.png",
-                        "portrait-896h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "landscape-896h@3x" : "C:/Users/gaoju/Desktop/11.png",
-                        "portrait-896h@3x" : "C:/Users/gaoju/Desktop/11.png",
-                        "landscape-896h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "iphonex" : "C:/Users/gaoju/Desktop/11.png",
-                        "iphonexl" : "C:/Users/gaoju/Desktop/11.png",
-                        "retina55" : "C:/Users/gaoju/Desktop/11.png",
-                        "retina55l" : "C:/Users/gaoju/Desktop/11.png",
-                        "retina47" : "C:/Users/gaoju/Desktop/11.png",
-                        "retina47l" : "C:/Users/gaoju/Desktop/11.png",
-                        "retina40l" : "C:/Users/gaoju/Desktop/11.png"
+                        "retina35" : "D:/v21/V21/images/start.png", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : "D:/v21/V21/images/start.png",
+                        "portrait-896h@2x" : "D:/v21/V21/images/start.png",
+                        "landscape-896h@3x" : "D:/v21/V21/images/start.png",
+                        "portrait-896h@3x" : "D:/v21/V21/images/start.png",
+                        "landscape-896h@2x" : "D:/v21/V21/images/start.png",
+                        "iphonex" : "D:/v21/V21/images/start.png",
+                        "iphonexl" : "D:/v21/V21/images/start.png",
+                        "retina55" : "D:/v21/V21/images/start.png",
+                        "retina55l" : "D:/v21/V21/images/start.png",
+                        "retina47" : "D:/v21/V21/images/start.png",
+                        "retina47l" : "D:/v21/V21/images/start.png",
+                        "retina40l" : "D:/v21/V21/images/start.png"
                     },
                     "ipad" : {
                         "portrait" : "", /*iPad竖屏启动图片，分辨率：768x1004*/
                         "portrait-retina" : "", /*iPad高分屏竖屏图片，分辨率：1536x2008*/
                         "landscape" : "", /*iPad横屏启动图片，分辨率：1024x748*/
                         "landscape-retina" : "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
-                        "portrait7" : "C:/Users/gaoju/Desktop/11.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
-                        "portrait-retina7" : "C:/Users/gaoju/Desktop/11.png", /*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
-                        "landscape7" : "C:/Users/gaoju/Desktop/11.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
-                        "landscape-retina7" : "C:/Users/gaoju/Desktop/11.png",
-                        "portrait-1366h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "landscape-1366h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "portrait-1194h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "landscape-1194h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "portrait-1112h@2x" : "C:/Users/gaoju/Desktop/11.png",
-                        "landscape-1112h@2x" : "C:/Users/gaoju/Desktop/11.png"
+                        "portrait7" : "D:/v21/V21/images/start.png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+                        "portrait-retina7" : "D:/v21/V21/images/start.png", /*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+                        "landscape7" : "D:/v21/V21/images/start.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+                        "landscape-retina7" : "D:/v21/V21/images/start.png",
+                        "portrait-1366h@2x" : "D:/v21/V21/images/start.png",
+                        "landscape-1366h@2x" : "D:/v21/V21/images/start.png",
+                        "portrait-1194h@2x" : "D:/v21/V21/images/start.png",
+                        "landscape-1194h@2x" : "D:/v21/V21/images/start.png",
+                        "portrait-1112h@2x" : "D:/v21/V21/images/start.png",
+                        "landscape-1112h@2x" : "D:/v21/V21/images/start.png"
                     }
                 },
                 "android" : {
                     "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi" : "C:/Users/gaoju/Desktop/11.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi" : "C:/Users/gaoju/Desktop/11.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi" : "C:/Users/gaoju/Desktop/11.png"
+                    "hdpi" : "D:/v21/V21/images/start.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "D:/v21/V21/images/start.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "D:/v21/V21/images/start.png"
                 },
                 "androidStyle" : "default",
                 "iosStyle" : "default"
