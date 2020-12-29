@@ -50,7 +50,7 @@
 				title-style="color:#074560;"
 				icon="replay" 
 				value="已是最新版本"
-				@click="tofeedback">
+				@click="updateversion">
 			</van-cell> 
 			
 			<van-cell
@@ -64,7 +64,7 @@
 			</van-cell>
 			
 			<van-cell
-				title="关于我们"
+				title="关于软件"
 				is-link 
 				clickable=true
 				title-style="color:#074560;"
@@ -146,6 +146,13 @@
 				},
 				onClickRight(){
 					alert("哈哈");
+				},
+				updateversion(){
+					vant.Toast.loading({
+						type: 'loading',
+						duration: 1000,
+						message: '版本检查中...',
+					});
 				},
 			},
 		});

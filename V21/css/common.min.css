@@ -5,8 +5,8 @@ html,body{
 	overflow：auto;
 }
 .c1 {
-	padding-left:15px;
-	padding-right:15px;
+	padding-left:0px;
+	padding-right:0px;
 }
 
 .my-swipe .van-swipe-item {
@@ -55,7 +55,7 @@ van-tabs{
 	margin-right:-10px;
 }
 .img-rounded{
-	height: 180px; /*180*/
+	height: 150px; /*180*/
 	width: 100%;
 }
 .caption{
@@ -166,4 +166,14 @@ table,tr{
 	position:absolute;
 	top:-50px;
 }
-
+#ctt{
+	margin-top: 5px;
+	height:80px;
+	padding-top: 20px;
+	border-radius: 5px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 28px;
+	color: #fff;
+	font-weight: bold;
+}

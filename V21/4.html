@@ -7,23 +7,17 @@
 	<link rel="stylesheet" href="./css/index.css">
 	<link rel="stylesheet" href="./css/common.min.css">
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<script src="./js/vue.min.js"></script>
-	<script src="./js/vant.min.js"></script>	
-	<script src="./js/jquery.min.js"></script>
-	<script src="./js/jquery.base64.js"></script>
-	<script src="./js/cookie.min.js"></script>
-	<script src="./js/common.min.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div id="app">
 		<van-nav-bar
 			:fixed="true"
-			title="首页"
+			title="动漫"
 			placeholder = "true"
 			id="reset"
-			left-text="更多"
+			left-text="返回"
 			@click-right="showSearchPanel"
+			@click-left="tab(0,0)"
 		>
 			<template #right>
 			    <van-icon name="search" color="#1AA034" size="22"/>
@@ -50,7 +44,7 @@
 						</div>
 					</a>
 			   </div>
-			</div>
+			</div> 
 			<br/>
 			<van-pagination
 				v-if="if_show"
@@ -75,7 +69,14 @@
 		</van-tabbar>
 	</div>
 </body>
+<script src="./js/vue.min.js"></script>
+<script src="./js/vant.min.js"></script>	
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.base64.js"></script>
+<script src="./js/cookie.min.js"></script>
+<script src="./js/common.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	res_load(dy);
+	res_load(dm);
 </script>
-</html>	
+</html>
