@@ -49,7 +49,7 @@
 				clickable=true
 				title-style="color:#074560;"
 				icon="replay" 
-				value="已是最新版本"
+				:value="version"
 				@click="updateversion">
 			</van-cell> 
 			
@@ -95,16 +95,18 @@
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/cookie.min.js"></script>
 	<script src="./js/common.min.js"></script>
+	<script src="./js/version.min.js"></script>
 		
 	<script type="application/javascript">
 		var storage_size=get_cache_size('l');
-		
+		var version=get_cache("version");
 		// 必须实例化
 		var setting_app = new Vue({
 			el:"#setting_app", 
 			data: {
 				active: 3,
 				value: '',
+				version:version,
 				showShare: false,
 				storage_size: storage_size,
 				options: [
@@ -148,11 +150,9 @@
 					alert("哈哈");
 				},
 				updateversion(){
-					vant.Toast.loading({
-						type: 'loading',
-						duration: 1000,
-						message: '版本检查中...',
-					});
+					var ver_num=plusReady_confirm();
+					set_cache("version",ver_num);
+					setting_app.$set(setting_app,"version",ver_num);
 				},
 			},
 		});
