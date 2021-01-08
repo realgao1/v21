@@ -73,7 +73,6 @@
 			</van-cell> 
 		</van-cell-group>
 		
-		
 		<van-share-sheet
 			v-model="showShare"
 			title="立即分享给好友"
@@ -112,8 +111,6 @@
 				options: [
 					[
 						{ name: '微信', icon: 'wechat' },
-						{ name: '微博', icon: 'weibo' },
-						{ name: 'QQ', icon: 'qq' },
 						{ name: '复制链接', icon: 'link' },
 						{ name: '二维码', icon: 'qrcode' },
 					],
@@ -122,6 +119,13 @@
 			methods: {
 				onSelect(option) {
 				  vant.Toast(option.name);
+				  /* if(option.name='复制链接'){
+					  vant.Toast('复制链接');
+				  }else if(option.name='二维码'){
+					  vant.Toast('二维码');
+				  }else{
+					  vant.Toast('微信');
+				  } */
 				  this.showShare = false;
 				},
 				onInput(checked) {
